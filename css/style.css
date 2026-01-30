@@ -1,8 +1,9 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #FAF7F2;
+ /* background-color: #FAF7F2; */
   color: #3B2F2F;
+  background-image: url
 }
 
 .header {
@@ -11,6 +12,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .brand {
@@ -18,10 +21,21 @@ body {
   font-size: 24px;
 }
 
+nav {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.logo {
+  height: auto;              /* match navbar height */
+  max-height: 80px;          /* safety cap */
+  width: auto;               /* preserve aspect ratio */
+}
 nav a {
   margin-left: 16px;
   text-decoration: none;
   color: #3B2F2F;
+  padding: 6px 4px;
 }
 
 nav a.cta {
@@ -36,7 +50,7 @@ nav a.cta {
 }
 
 .hero h2 {
-  font-size: 36px;
+  font-size: clamp(24px, 5vw, 36px);
 }
 
 .button {
@@ -53,13 +67,14 @@ nav a.cta {
   display: flex;
   gap: 20px;
   margin-top: 40px;
+  flex-wrap: wrap;
 }
 
 .highlights div {
   background: #fff;
   padding: 20px;
   border-radius: 6px;
-  flex: 1;
+  flex: 1 1 250px;
 }
 
 .product {
@@ -74,4 +89,43 @@ nav a.cta {
   padding: 20px;
   background: #fff;
   margin-top: 40px;
+}
+
+
+@media (max-width: 768px) {
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  nav a {
+    margin: 8px 0;
+    font-size: 14px;
+  }
+
+  .hero h2 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .container {
+    margin: 20px auto;
+    padding: 0 16px;
+  }
+
+  .button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .highlights {
+    margin-top: 24px;
+  }
+
 }
