@@ -219,3 +219,96 @@ nav a.cta {
   font-weight: 600;
 }
 
+.ammamma {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  width: 120px;
+  height: auto;
+
+  z-index: 1000;
+  pointer-events: none; /* purely aesthetic */
+
+  animation: ammamma-enter 0.8s ease-out forwards;
+}
+
+/* Entry animation */
+@keyframes ammamma-enter {
+  from {
+    transform: translateY(40px) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.ammamma {
+  animation:
+    ammamma-enter 0.8s ease-out forwards,
+    ammamma-float 3s ease-in-out infinite;
+  animation-delay: 0s, 0.8s;
+}
+
+@keyframes ammamma-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@media (max-width: 600px) {
+  .ammamma {
+    width: 80px;
+    bottom: 12px;
+    right: 12px;
+    opacity: 0.8;
+  }
+}
+
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f7f5f2; /* fallback */
+}
+
+/* Wrapper to control background */
+.page-wrapper {
+  position: relative;
+  min-height: 100vh;
+  z-index: 1;
+}
+
+/* Ammamma faded background */
+.page-wrapper::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background-image: url("images/imagen/ammamma_home.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 420px auto;
+
+  opacity: 0.12; /* 👈 controls fade */
+  filter: blur(0.5px);
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .page-wrapper::before {
+    background-size: 280px auto;
+    opacity: 0.08;
+  }
+}
+
+.page-wrapper::before {
+  filter: blur(1px) saturate(0.9);
+}
