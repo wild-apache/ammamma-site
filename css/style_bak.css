@@ -183,39 +183,3 @@ nav a.cta {
     height: 180px;
   }
 }
-
-/* Category spacing */
-.category {
-  margin-bottom: 48px;
-}
-
-/* Product grid */
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
-
-/* Product card */
-.product-card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 6px;
-  position: relative;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-/* Quantity label */
-.qty-label {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 12px;
-  background: #FAF3E0;
-  color: #6B3E26;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-weight: 600;
-}
-
