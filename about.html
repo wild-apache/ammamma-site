@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from homemade-treats-441.preview.emergentagent.com/about.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 22:29:14 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Ammamma Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">👵</span>
+                    <span class="logo-text">Ammamma Shop</span>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link active">About</a>
+                    <a href="products.html" class="nav-link">Products</a>
+                </nav>
+                <div class="cart-icon" id="cartIcon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="banana-leaf-top-left"></div>
+        <div class="banana-leaf-top-right"></div>
+        <div class="container">
+            <h1 class="page-title">About Ammamma Shop</h1>
+            <p class="page-subtitle">Our Story of Love, Tradition, and Authentic Flavors</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="content-section">
+        <div class="container">
+            <div class="content-card">
+                <h2 class="content-heading">Our Heritage</h2>
+                <p class="content-text">
+                    Ammamma Shop was born from generations of culinary wisdom passed down through our family. 
+                    What started as our grandmother's cherished recipes shared among family and friends has now 
+                    blossomed into a mission to bring authentic, homemade Indian flavors to homes across the region.
+                </p>
+                <p class="content-text">
+                    Every product we create carries the essence of traditional Indian cooking – made with patience, 
+                    care, and the finest natural ingredients. Our Ammamma (grandmother) believed that food made 
+                    with love tastes better, and that philosophy guides everything we do.
+                </p>
+            </div>
+
+            <div class="content-card">
+                <h2 class="content-heading">Our Promise</h2>
+                <p class="content-text">
+                    We are committed to preserving the authenticity of traditional recipes while maintaining the 
+                    highest standards of quality and hygiene. Each batch is handcrafted in small quantities to 
+                    ensure freshness and flavor.
+                </p>
+                <ul class="content-list">
+                    <li>100% natural ingredients with no preservatives or artificial colors</li>
+                    <li>Traditional recipes perfected over generations</li>
+                    <li>Made fresh in small batches for maximum flavor</li>
+                    <li>Hygienically prepared in a clean, modern kitchen</li>
+                    <li>Personally tested and approved by our family</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h2 class="content-heading">What We Offer</h2>
+                <p class="content-text">
+                    Our product range includes traditional spice powders, tangy pickles, and pure buffalo ghee – 
+                    all crafted with the same care and attention that Ammamma gave to her family meals. Whether 
+                    it's the fiery kick of our Kaarappodi or the rich golden taste of our Buffalo Ghee, each 
+                    product tells a story of tradition and taste.
+                </p>
+            </div>
+
+            <div class="content-card">
+                <h2 class="content-heading">Connect With Us</h2>
+                <p class="content-text">
+                    We love hearing from our customers! Have questions about our products? Want to share your 
+                    experience? Or simply want to chat about traditional recipes? Reach out to us on WhatsApp 
+                    at +91 8686981272. We're here to serve you with the same warmth Ammamma showed her loved ones.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="banana-leaf-bottom-left"></div>
+        <div class="banana-leaf-bottom-right"></div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 class="footer-title">ammamma.shop</h4>
+                    <p class="footer-text">Bringing traditional flavors to your home with love and care.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="returns-and-refunds.html">Returns & Refunds</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Contact</h4>
+                    <p class="footer-text">WhatsApp: +91 8686981272</p>
+                    <p class="footer-text">Order through WhatsApp for quick delivery!</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ammamma.shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <div class="cart-header">
+                <h2>Your Cart</h2>
+                <button class="cart-close" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-footer">
+                <button class="btn btn-primary btn-block" id="whatsappOrder">Proceed to Order on WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="cart.js"></script>
+</body>
+
+<!-- Mirrored from homemade-treats-441.preview.emergentagent.com/about.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Feb 2026 22:29:14 GMT -->
+</html>
