@@ -106,6 +106,19 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--phthalo-green);
 }
 
+.logo a {
+    display: flex;
+    align-items: center;    
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+
+
 .logo-icon {
     font-size: 2rem;
 }
@@ -262,7 +275,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     padding: 2rem;
     border-radius: 20px;
-    background-color: var(--beige-light);
+    background-color: var(--beige);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 

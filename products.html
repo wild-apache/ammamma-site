@@ -15,8 +15,9 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <span class="logo-icon">👵</span>
-                    <span class="logo-text">Ammamma Shop</span>
+                <a href="index.html">
+                <img src="Images/logos/ammammashop.png" alt="ammamma.shop logo" class="logo-img">
+                </a>
                 </div>
                 <nav class="nav">
                     <a href="index.html" class="nav-link">Home</a>
@@ -56,7 +57,7 @@
             <div class="products-grid">
                 <div class="product-card" data-testid="product-card-idly-kaaram">
                     <!--<div [Edefault] class="product-image" style="background-image: url('images/idly-kaaram.png'); background-size: cover; background-position: center;"></div> -->
-                    <div class="product-image" style="background-image: url('images/idly-kaaram.png');">
+                    <div class="product-image" style="background-image: url('images/powders/idlykaaram.png');">
                         <span class="product-image-text">Idly Kaaram</span>
                     </div>
                     <div class="product-info">
@@ -74,8 +75,7 @@
                 </div>
 
                 <div class="product-card" data-testid="product-card-kaarappodi">
-                    <div class="product-image" style="background-image: url('images/kaarappodi.png');">
-
+                    <div class="product-image" style="background-image: url('images/powders/kaarappodi.png');">
                     <!-- [Edefault] <div class="product-image" style="background: linear-gradient(135deg, #C4956E 0%, #B48860 100%);"> -->
                         <span class="product-image-text">Kaarappodi</span>
                     </div>
@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="product-card" data-testid="product-card-aviseginjala-kaaram">
-                    <div class="product-image" style="background-image: url('images/flaxseedpowder.png');">
+                    <div class="product-image" style="background-image: url('images/powders/flaxseedpowder.png');">
                     <!-- [Edefault] <div class="product-image" style="background: linear-gradient(135deg, #D4A574 0%, #C4956E 100%);"> -->
                         <span class="product-image-text">Aviseginjala Kaaram</span>
                     </div>
@@ -112,8 +112,104 @@
                     </div>
                 </div>
 
+                <div class="product-card" data-testid="product-card-munagaku-kaaram">
+                    <div class="product-image" style="background-image: url('images/powders/munagakukaaram.png');">
+                    <!-- [Edefault] <div class="product-image" style="background: linear-gradient(135deg, #D4A574 0%, #C4956E 100%);"> -->
+                        <span class="product-image-text">Munagaku Kaaram</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Munagaku Kaaram [Seasonal Availability]</h3>
+                        <p class="product-desc">Iron-rich herbal spice mix made from sun-dried drumstick leaves.</p>
+                        <div class="quantity-selector">
+                          <label><input type="radio" name="qty-munagaku" value="250g" checked> ¼ kg</label>
+                          <label><input type="radio" name="qty-munagaku" value="500g"> ½ kg</label>
+                          <label><input type="radio" name="qty-munagaku" value="1kg"> 1 kg</label>
+                        </div>
+                        <button class="btn btn-cart"
+                           onclick="addToCart('Munagaku Kaaram','qty-munagaku')"> Add to Cart </button>
+                        <!--<button class="btn btn-cart" data-testid="add-to-cart-munagaku-kaaram" onclick="addToCart('Munagaku Kaaram')">Add to Cart</button> -->
+                    </div>
+                </div>
+
+
+                <div class="product-card" data-testid="product-card-karivepaku-kaaram">
+                    <div class="product-image" style="background-image: url('images/powders/karivepakukaaram.png');">
+                    <!-- [Edefault] <div class="product-image" style="background: linear-gradient(135deg, #D4A574 0%, #C4956E 100%);"> -->
+                        <span class="product-image-text">Karivepaku Kaaram</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Karivepaku Kaaram</h3>
+                        <p class="product-desc">Aromatic curry leaves spice blend for flavor and digestive goodness.</p>
+                        <div class="quantity-selector">
+                          <label><input type="radio" name="qty-karivepaku" value="250g" checked> ¼ kg</label>
+                          <label><input type="radio" name="qty-karivepaku" value="500g"> ½ kg</label>
+                          <label><input type="radio" name="qty-karivepaku" value="1kg"> 1 kg</label>
+                        </div>
+                        <button class="btn btn-cart"
+                           onclick="addToCart('Karivepaku Kaaram','qty-karivepaku')"> Add to Cart </button>
+                        <!--<button class="btn btn-cart" data-testid="add-to-cart-karivepaku-kaaram" onclick="addToCart('Karivepaku Kaaram')">Add to Cart</button> -->
+                    </div>
+                </div>
+
+                <div class="product-card" data-testid="product-card-kandipodi">
+                    <div class="product-image" style="background-image: url('images/powders/Kandipodi.png');">
+                    <!-- [Edefault] <div class="product-image" style="background: linear-gradient(135deg, #D4A574 0%, #C4956E 100%);"> -->
+                        <span class="product-image-text">Kandipodi</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Kandipodi</h3>
+                        <p class="product-desc">Protein-rich lentil spice mix with bold, homestyle flavor.</p>
+                        <div class="quantity-selector">
+                          <label><input type="radio" name="qty-kandipodi" value="250g" checked> ¼ kg</label>
+                          <label><input type="radio" name="qty-kandipodi" value="500g"> ½ kg</label>
+                          <label><input type="radio" name="qty-kandipodi" value="1kg"> 1 kg</label>
+                        </div>
+                        <button class="btn btn-cart"
+                           onclick="addToCart('Kandipodi','qty-kandipodi')"> Add to Cart </button>
+                        <!--<button class="btn btn-cart" data-testid="add-to-cart-kandipodi" onclick="addToCart('Kandipodi')">Add to Cart</button> -->
+                    </div>
+                </div>
+
+                <div class="product-card" data-testid="product-card-vellullikaaram">
+                    <div class="product-image" style="background-image: url('images/powders/vellullikaaram.png');">
+                    <!-- [Edefault] <div class="product-image" style="background: linear-gradient(135deg, #D4A574 0%, #C4956E 100%);"> -->
+                        <span class="product-image-text">Vellulli Kaaram</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Vellulli Kaaram</h3>
+                        <p class="product-desc">Bold garlic spice blend that elevates every bite.</p>
+                        <div class="quantity-selector">
+                          <label><input type="radio" name="qty-vellulli" value="250g" checked> ¼ kg</label>
+                          <label><input type="radio" name="qty-vellulli" value="500g"> ½ kg</label>
+                          <label><input type="radio" name="qty-vellulli" value="1kg"> 1 kg</label>
+                        </div>
+                        <button class="btn btn-cart"
+                           onclick="addToCart('Vellulli Kaaram','qty-vellulli')"> Add to Cart </button>
+                        <!--<button class="btn btn-cart" data-testid="add-to-cart-vellulli-kaaram" onclick="addToCart('Vellulli Kaaram')">Add to Cart</button> -->
+                    </div>
+                </div>
+
+                <div class="product-card" data-testid="product-card-nuvvulapodi">
+                    <div class="product-image" style="background-image: url('images/powders/nuvvulapodi.png');">
+                    <!-- [Edefault] <div class="product-image" style="background: linear-gradient(135deg, #D4A574 0%, #C4956E 100%);"> -->
+                        <span class="product-image-text">Nuvvula Kaaram</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Nuvvula Kaaram</h3>
+                        <p class="product-desc">Calcium-rich sesame spice powder with bold Andhra flavor.</p>
+                        <div class="quantity-selector">
+                          <label><input type="radio" name="qty-nuvvula" value="250g" checked> ¼ kg</label>
+                          <label><input type="radio" name="qty-nuvvula" value="500g"> ½ kg</label>
+                          <label><input type="radio" name="qty-nuvvula" value="1kg"> 1 kg</label>
+                        </div>
+                        <button class="btn btn-cart"
+                           onclick="addToCart('Nuvvula Kaaram','qty-nuvvula')"> Add to Cart </button>
+                        <!--<button class="btn btn-cart" data-testid="add-to-cart-nuvvula-kaaram" onclick="addToCart('Nuvvula Kaaram')">Add to Cart</button> -->
+                    </div>
+                </div>
+
                 <div class="product-card" data-testid="product-card-high-protein-kaarappodi">
-                    <div class="product-image" style="background-image: url('images/high-protein-karappodi.png');">
+                    <div class="product-image" style="background-image: url('images/powders/proteinkaarappodi.png');">
                     <!-- [Edefault] div class="product-image" style="background: linear-gradient(135deg, #B48860 0%, #A47B54 100%);"> -->
                         <span class="product-image-text">High-Protein Kaarappodi</span>
                     </div>
@@ -138,14 +234,14 @@
                 <p class="category-description">Tangy and flavorful traditional Indian pickles</p>
             </div>
             <div class="products-grid">
-                <div class="product-card" data-testid="product-card-chicken-pickle">
-                    <div class="product-image" style="background-image: url('images/chickenpickle.png');">
-                    <!-- <div class="product-image" style="background: linear-gradient(135deg, #E8A87C 0%, #D89968 100%);"> -->
-                        <span class="product-image-text">Chicken Pickle</span>
+<!--==========================================================================================================================================================================-->
+                <div class="product-card" data-testid="product-card-chickenpickle">
+                    <div class="product-image" style="background-image: url('images/pickles/chickenpickle.png">
+                        <span class="product-image-text"></span>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Chicken Pickle</h3>
-                        <p class="product-desc">Spicy and tangy non-veg pickle</p>
+                        <h3 class="product-name">Chicken Pickle - Boneless</h3>
+                        <p class="product-desc">Spicy and tangy Chicken pickle - Boneless</p>
                         <div class="quantity-selector">
                           <label><input type="radio" name="qty-chickenpickle" value="250g" checked> ¼ kg</label>
                           <label><input type="radio" name="qty-chickenpickle" value="500g"> ½ kg</label>
@@ -156,28 +252,29 @@
                         <!--<button class="btn btn-cart" data-testid="add-to-cart-chicken-pickle" onclick="addToCart('Chicken Pickle')">Add to Cart</button> -->
                     </div>
                 </div>
-
-                <div class="product-card" data-testid="product-card-amla-pickle">
-                    <div class="product-image" style="background: linear-gradient(135deg, #A8D08D 0%, #98C07D 100%);">
-                        <span class="product-image-text">Amla Pickle</span>
+<!--==========================================================================================================================================================================-->
+                <div class="product-card" data-testid="product-card-chicken-bone">
+                    <div class="product-image" style="background-image: url('images/pickles/chickenpicklebone.png');">
+                    <!--<div class="product-image" style="background: linear-gradient(135deg, #A8D08D 0%, #98C07D 100%);"> -->
+                        <span class="product-image-text"></span>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Amla Pickle</h3>
-                        <p class="product-desc">Healthy gooseberry pickle rich in Vitamin C</p>
+                        <h3 class="product-name">Chicken Pickle with Bone</h3>
+                        <p class="product-desc">Spicy and tangy Chicken pickle</p>
                         <div class="quantity-selector">
-                          <label><input type="radio" name="qty-amlapickle" value="250g" checked> ¼ kg</label>
-                          <label><input type="radio" name="qty-amlapickle" value="500g"> ½ kg</label>
-                          <label><input type="radio" name="qty-amlapickle" value="1kg"> 1 kg</label>
+                          <label><input type="radio" name="qty-chicken-bone" value="250g" checked> ¼ kg</label>
+                          <label><input type="radio" name="qty-chicken-bone" value="500g"> ½ kg</label>
+                          <label><input type="radio" name="qty-chicken-bone" value="1kg"> 1 kg</label>
                         </div>
                         <button class="btn btn-cart"
-                           onclick="addToCart('Amla Pickle','qty-amlapickle')"> Add to Cart </button>
-                        <!--<button class="btn btn-cart" data-testid="add-to-cart-amla-pickle" onclick="addToCart('Amla Pickle')">Add to Cart</button> -->
+                           onclick="addToCart('Chicken Pickle with Bone','qty-chicken-bone')"> Add to Cart </button>
+                        <!--<button class="btn btn-cart" data-testid="add-to-cart-amla-pickle" onclick="addToCart('Chicken Pickle with Bone')">Add to Cart</button> -->
                     </div>
                 </div>
-
+<!--==========================================================================================================================================================================-->
                 <div class="product-card" data-testid="product-card-tomato-pickle">
-                    <div class="product-image" style="background: linear-gradient(135deg, #E88C7D 0%, #D87C6D 100%);">
-                        <span class="product-image-text">Tomato Pickle</span>
+                    <div class="product-image" style="background-image: url('images/pickles/tomatopickle.png');">
+                        <span class="product-image-text"></span>
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Tomato Pickle</h3>
@@ -192,42 +289,60 @@
                         <!-- <button class="btn btn-cart" data-testid="add-to-cart-tomato-pickle" onclick="addToCart('Tomato Pickle')">Add to Cart</button> -->
                     </div>
                 </div>
-
-                <div class="product-card" data-testid="product-card-lemon-pickle">
-                    <div class="product-image" style="background: linear-gradient(135deg, #F4E157 0%, #E4D147 100%);">
-                        <span class="product-image-text">Lemon Pickle</span>
+<!--==========================================================================================================================================================================-->
+                <div class="product-card" data-testid="product-card-amla-pickle">
+                    <div class="product-image" style="background-image: url('images/pickles/amlapickle.png');">
+                        <span class="product-image-text"></span>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Lemon Pickle</h3>
-                        <p class="product-desc">Zesty lemon pickle with perfect spice balance</p>
+                        <h3 class="product-name">Amla Pickle [Seasonal Availability] </h3>
+                        <p class="product-desc">Sweet and sour amla pickle</p>
                         <div class="quantity-selector">
-                          <label><input type="radio" name="qty-lemonpickle" value="250g" checked> ¼ kg</label>
-                          <label><input type="radio" name="qty-lemonpickle" value="500g"> ½ kg</label>
-                          <label><input type="radio" name="qty-lemonpickle" value="1kg"> 1 kg</label>
+                          <label><input type="radio" name="qty-amlapickle" value="250g" checked> ¼ kg</label>
+                          <label><input type="radio" name="qty-amlapickle" value="500g"> ½ kg</label>
+                          <label><input type="radio" name="qty-amlapickle" value="1kg"> 1 kg</label>
                         </div>
-                        <button class="btn btn-cart" onclick="addToCart('Lemon Pickle','qty-lemonpickle')"> Add to Cart </button>
-                        <!--<button class="btn btn-cart" data-testid="add-to-cart-lemon-pickle" onclick="addToCart('Lemon Pickle')">Add to Cart</button> -->
+                        <button class="btn btn-cart"
+                           onclick="addToCart('Amla Pickle','qty-amlapickle')"> Add to Cart </button>
+                        <!-- <button class="btn btn-cart" data-testid="add-to-cart-amla-pickle" onclick="addToCart('Amla Pickle')">Add to Cart</button> -->
                     </div>
                 </div>
-
-                <div class="product-card" data-testid="product-card-aavakaya-pickle">
-                    <div class="product-image" style="background: linear-gradient(135deg, #F4B042 0%, #E4A032 100%);">
-                        <span class="product-image-text">Aavakaya Pickle</span>
+<!--==========================================================================================================================================================================-->
+                <div class="product-card" data-testid="product-card-ginger-pickle">
+                    <div class="product-image" style="background-image: url('images/pickles/gingerpickle.png');">
+                       <span class="product-image-text"></span>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Aavakaya Pickle</h3>
-                        <p class="product-desc">Classic Andhra-style mango pickle</p>
+                        <h3 class="product-name">Ginger Pickle</h3>
+                        <p class="product-desc">Spicy ginger pickle with perfect spice balance</p>
+                        <div class="quantity-selector">
+                          <label><input type="radio" name="qty-gingerpickle" value="250g" checked> ¼ kg</label>
+                          <label><input type="radio" name="qty-gingerpickle" value="500g"> ½ kg</label>
+                          <label><input type="radio" name="qty-gingerpickle" value="1kg"> 1 kg</label>
+                        </div>
+                        <button class="btn btn-cart" onclick="addToCart('Ginger Pickle','qty-gingerpickle')"> Add to Cart </button>
+                        <!--<button class="btn btn-cart" data-testid="add-to-cart-ginger-pickle" onclick="addToCart('Ginger Pickle')">Add to Cart</button> -->
+                    </div>
+                </div>
+<!--==========================================================================================================================================================================-->
+                <div class="product-card" data-testid="product-card-mango-pickle">
+                    <div class="product-image" style="background-image: url('images/pickles/mangopickle.png');">
+                        <span class="product-image-text"></span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Mango Pickle</h3>
+                        <p class="product-desc">Classic Andhra-style Mango pickle</p>
                         <div class="quantity-selector">
                           <label><input type="radio" name="qty-mangopickle" value="250g" checked> ¼ kg</label>
                           <label><input type="radio" name="qty-mangopickle" value="500g"> ½ kg</label>
                           <label><input type="radio" name="qty-mangopickle" value="1kg"> 1 kg</label>
                         </div>
-                        <button class="btn btn-cart" onclick="addToCart('Aavakaya Pickle','qty-mangopickle')"> Add to Cart </button>
+                        <button class="btn btn-cart" onclick="addToCart('Mango Pickle','qty-mangopickle')"> Add to Cart </button>
                         <!--<button class="btn btn-cart" data-testid="add-to-cart-aavakaya-pickle" onclick="addToCart('Aavakaya Pickle')">Add to Cart</button> -->
                     </div>
                 </div>
             </div>
-
+<!--==========================================================================================================================================================================-->
             <!-- Ghee -->
             <div class="product-category-header">
                 <h2 class="category-title">Pure Ghee</h2>
@@ -235,7 +350,7 @@
             </div>
             <div class="products-grid">
                 <div class="product-card" data-testid="product-card-buffalo-ghee">
-                    <div class="product-image" style="background: linear-gradient(135deg, #F4D03F 0%, #E6C22F 100%);">
+                    <div class="product-image" style="background-image: url('images/ghee.png');">
                         <span class="product-image-text">Buffalo Ghee</span>
                     </div>
                     <div class="product-info">
@@ -251,6 +366,7 @@
                     </div>
                 </div>
             </div>
+<!--==========================================================================================================================================================================-->
         </div>
     </section>
 
