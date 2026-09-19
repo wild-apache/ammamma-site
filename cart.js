@@ -85,6 +85,18 @@ function setupMobileCartBar() {
 
     document.getElementById('mobileCartButton').addEventListener('click', openCart);
     document.getElementById('mobileWhatsAppButton').addEventListener('click', () => {
+        if (!cart.length) {
+            openCart();
+            return;
+        }
+
+        ensureAddressField();
+        const address = document.getElementById('customerAddress')?.value.trim() || '';
+        if (address) {
+            proceedToWhatsApp();
+            return;
+        }
+
         openCart();
         setTimeout(() => document.getElementById('customerAddress')?.focus(), 80);
     });
@@ -222,7 +234,7 @@ function proceedToWhatsApp() {
         `🛒 *Items Ordered:*\n${itemsList}\n\n` +
         `📍 *Delivery Address:*\n${address}`;
 
-    const whatsappURL = `https://api.whatsapp.com/send/?phone=+918686981272&text=${encodeURIComponent(message)}`;
+    const whatsappURL = `https://wa.me/916303446683?text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, '_blank', 'noopener');
 }
 
