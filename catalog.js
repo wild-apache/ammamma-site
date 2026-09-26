@@ -62,7 +62,8 @@ async function loadLiveCatalog() {
     try {
         const response = await fetch(AMMAMMA_CATALOG_API, { cache: 'no-store' });
         if (!response.ok) throw new Error('Catalog request failed');
-        const payload = JSON.parse(await response.text());
+        const raw = JSON.parse(await response.text());
+        const payload = raw?.json ?? raw;
         if (!payload || !Array.isArray(payload.products)) throw new Error('Invalid catalog response');
         renderLiveCatalog(payload.products);
     } catch (error) {
