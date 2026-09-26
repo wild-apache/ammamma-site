@@ -136,7 +136,7 @@ function addToCart(productName, qtyGroup) {
 
     const quantity = selected.value;
     const picklePriceByQuantity = { '250g': 129, '500g': 399, '1kg': 599 };
-    const price = picklePriceByQuantity[quantity] || null;
+    const selectedPrice = selected.dataset.price;\n    const price = selectedPrice !== undefined && selectedPrice !== '' ? Number(selectedPrice) : (picklePriceByQuantity[quantity] || null);
     const exists = cart.find(item => item.name === productName && item.quantity === quantity);
 
     if (!exists) {
