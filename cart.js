@@ -135,10 +135,12 @@ function addToCart(productName, qtyGroup) {
     }
 
     const quantity = selected.value;
+    const picklePriceByQuantity = { '250g': 129, '500g': 399, '1kg': 599 };
+    const price = picklePriceByQuantity[quantity] || null;
     const exists = cart.find(item => item.name === productName && item.quantity === quantity);
 
     if (!exists) {
-        cart.push({ name: productName, quantity });
+        cart.push({ name: productName, quantity, price });
         saveCart();
         updateCartCount();
         showNotification(`${productName} (${quantity}) added`);
@@ -187,7 +189,7 @@ function renderCartItems() {
 
     container.innerHTML = cart.map((item, index) => `
         <div class="cart-item">
-            <span class="cart-item-name">${escapeHtml(item.name)} <small>(${escapeHtml(item.quantity)})</small></span>
+            <span class="cart-item-name">${escapeHtml(item.name)} <small>(${escapeHtml(item.quantity)} · ₹${item.price != null ? escapeHtml(item.price) : ''})</small></span>
             <button class="cart-item-remove" data-cart-index="${index}" aria-label="Remove ${escapeHtml(item.name)}">×</button>
         </div>
     `).join('');
@@ -228,10 +230,12 @@ function proceedToWhatsApp() {
         return;
     }
 
-    const itemsList = cart.map(item => `• ${item.name} (${item.quantity})`).join('\n');
+    const itemsList = cart.map(item => `• ${item.name} (${item.quantity}) — ₹${item.price ?? 'Price on request'}`).join('\n');
+    const total = cart.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
     const message =
         `Hi, I would like to place an order.\n\n` +
         `🛒 *Items Ordered:*\n${itemsList}\n\n` +
+        `💰 *Total:* ₹${total}\n\n` +
         `📍 *Delivery Address:*\n${address}`;
 
     const whatsappURL = `https://wa.me/916303446683?text=${encodeURIComponent(message)}`;
