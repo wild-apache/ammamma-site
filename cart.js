@@ -238,7 +238,7 @@ function proceedToWhatsApp() {
         `💰 *Total:* ₹${total}\n\n` +
         `📍 *Delivery Address:*\n${address}`;
 
-    const whatsappURL = `https://wa.me/916303446683?text=${encodeURIComponent(message)}`;
+    const whatsappURL = `https://wa.me/916303444683?text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, '_blank', 'noopener');
 }
 
