@@ -10,6 +10,12 @@ function catalogEscape(value) {
     }[char]));
 }
 
+function storefrontCategoryName(category) {
+    return String(category || '').trim().toLowerCase() === 'powders'
+        ? 'Spice Powders'
+        : String(category || '').trim();
+}
+
 function getCategorySections() {
     return Array.from(document.querySelectorAll('.product-category-header')).map(header => ({
         name: header.querySelector('.category-title')?.textContent?.trim() || '',
@@ -49,7 +55,7 @@ function renderLiveCatalog(products) {
     });
 
     products.forEach((product, productIndex) => {
-        const grid = ensureCategorySection(product.category);
+        const grid = ensureCategorySection(storefrontCategoryName(product.category));
         if (!grid) return;
 
         const slug = catalogSlug(product.slug || product.name) || ('product-' + productIndex);
