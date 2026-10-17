@@ -106,7 +106,7 @@ function updateMobileCartBar() {
     const bar = document.getElementById('mobileCartBar');
     const count = document.getElementById('mobileCartCount');
     if (!bar || !count) return;
-    count.textContent = cart.length;
+    count.textContent = cart.reduce((sum, item) => sum + (Number(item.count) || 1), 0);
     bar.classList.toggle('has-items', cart.length > 0);
 }
 
@@ -127,7 +127,7 @@ function saveCart() {
 }
 
 /* ---------- Cart Actions ---------- */
-function addToCart(productName, qtyGroup) {
+function addToCart(productName, qtyGroup, requestedCount = 1) {
     const selected = document.querySelector(`input[name="${qtyGroup}"]:checked`);
     if (!selected) {
         showNotification('Please select a quantity');
@@ -160,7 +160,7 @@ function removeFromCart(name, quantity) {
 /* ---------- UI ---------- */
 function updateCartCount() {
     const count = document.getElementById('cartCount');
-    if (count) count.textContent = cart.length;
+    if (count) count.textContent = cart.reduce((sum, item) => sum + (Number(item.count) || 1), 0);
     updateMobileCartBar();
 }
 
@@ -190,7 +190,7 @@ function renderCartItems() {
 
     container.innerHTML = cart.map((item, index) => `
         <div class="cart-item">
-            <span class="cart-item-name">${escapeHtml(item.name)} <small>(${escapeHtml(item.quantity)} · ₹${item.price != null ? escapeHtml(item.price) : ''})</small></span>
+            <span class="cart-item-name">${escapeHtml(item.name)} <small>(${escapeHtml(item.quantity)} × ${Number(item.count) || 1} · ₹${item.price != null ? escapeHtml(item.price) : ''})</small></span>
             <button class="cart-item-remove" data-cart-index="${index}" aria-label="Remove ${escapeHtml(item.name)}">×</button>
         </div>
     `).join('');
@@ -231,8 +231,8 @@ function proceedToWhatsApp() {
         return;
     }
 
-    const itemsList = cart.map(item => `• ${item.name} (${item.quantity}) — ₹${item.price ?? 'Price on request'}`).join('\n');
-    const total = cart.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
+    const itemsList = cart.map(item => `• ${item.name} (${item.quantity}) × ${Number(item.count) || 1} — ₹${item.price ?? 'Price on request'} each = ₹${(Number(item.price) || 0) * (Number(item.count) || 1)}`).join('\n');
+    const total = cart.reduce((sum, item) => sum + (Number(item.price) || 0) * (Number(item.count) || 1), 0);
     const message =
         `Hi, I would like to place an order.\n\n` +
         `🛒 *Items Ordered:*\n${itemsList}\n\n` +
