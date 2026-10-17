@@ -78,7 +78,7 @@
     const qtyInput = document.getElementById('detailQuantity');
     document.getElementById('quantityMinus').addEventListener('click', () => qtyInput.value = Math.max(1, Number(qtyInput.value || 1) - 1));
     document.getElementById('quantityPlus').addEventListener('click', () => qtyInput.value = Math.min(20, Number(qtyInput.value || 1) + 1));
-    qtyInput.addEventListener('change', () => qtyInput.value = Math.min(20, Math.max(1, Math.floor(Number(qtyInput.value || 1))));
+    qtyInput.addEventListener('change', () => qtyInput.value = Math.min(20, Math.max(1, Math.floor(Number(qtyInput.value || 1)))));
     document.getElementById('detailAddToCart').addEventListener('click', () => {
       const qty = Math.min(20, Math.max(1, Math.floor(Number(qtyInput.value || 1))));
       qtyInput.value = qty;
