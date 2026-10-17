@@ -137,17 +137,20 @@ function addToCart(productName, qtyGroup, requestedCount = 1) {
     const quantity = selected.value;
     const picklePriceByQuantity = { '250g': 129, '500g': 399, '1kg': 599 };
     const selectedPrice = selected.dataset.price;
-    const price = selectedPrice !== undefined && selectedPrice !== '' ? Number(selectedPrice) : (picklePriceByQuantity[quantity] || null);
+    const price = selectedPrice !== undefined && selectedPrice !== ''
+        ? Number(selectedPrice)
+        : (picklePriceByQuantity[quantity] || null);
+    const countToAdd = Math.min(20, Math.max(1, Math.floor(Number(requestedCount) || 1)));
     const exists = cart.find(item => item.name === productName && item.quantity === quantity);
 
-    if (!exists) {
-        cart.push({ name: productName, quantity, price });
-        saveCart();
-        updateCartCount();
-        showNotification(`${productName} (${quantity}) added`);
+    if (exists) {
+        exists.count = Math.min(99, (Number(exists.count) || 1) + countToAdd);
     } else {
-        showNotification(`${productName} (${quantity}) already in cart`);
+        cart.push({ name: productName, quantity, price, count: countToAdd });
     }
+    saveCart();
+    updateCartCount();
+    showNotification(`${productName} (${quantity}) × ${countToAdd} added`);
 }
 
 function removeFromCart(name, quantity) {
