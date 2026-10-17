@@ -106,7 +106,7 @@ function updateMobileCartBar() {
     const bar = document.getElementById('mobileCartBar');
     const count = document.getElementById('mobileCartCount');
     if (!bar || !count) return;
-    count.textContent = cart.length;
+    count.textContent = cart.reduce((sum, item) => sum + (Number(item.count) || 1), 0);
     bar.classList.toggle('has-items', cart.length > 0);
 }
 
@@ -127,7 +127,7 @@ function saveCart() {
 }
 
 /* ---------- Cart Actions ---------- */
-function addToCart(productName, qtyGroup) {
+function addToCart(productName, qtyGroup, requestedCount = 1) {
     const selected = document.querySelector(`input[name="${qtyGroup}"]:checked`);
     if (!selected) {
         showNotification('Please select a quantity');
@@ -137,17 +137,20 @@ function addToCart(productName, qtyGroup) {
     const quantity = selected.value;
     const picklePriceByQuantity = { '250g': 129, '500g': 399, '1kg': 599 };
     const selectedPrice = selected.dataset.price;
-    const price = selectedPrice !== undefined && selectedPrice !== '' ? Number(selectedPrice) : (picklePriceByQuantity[quantity] || null);
+    const price = selectedPrice !== undefined && selectedPrice !== ''
+        ? Number(selectedPrice)
+        : (picklePriceByQuantity[quantity] || null);
+    const countToAdd = Math.min(20, Math.max(1, Math.floor(Number(requestedCount) || 1)));
     const exists = cart.find(item => item.name === productName && item.quantity === quantity);
 
-    if (!exists) {
-        cart.push({ name: productName, quantity, price });
-        saveCart();
-        updateCartCount();
-        showNotification(`${productName} (${quantity}) added`);
+    if (exists) {
+        exists.count = Math.min(99, (Number(exists.count) || 1) + countToAdd);
     } else {
-        showNotification(`${productName} (${quantity}) already in cart`);
+        cart.push({ name: productName, quantity, price, count: countToAdd });
     }
+    saveCart();
+    updateCartCount();
+    showNotification(`${productName} (${quantity}) × ${countToAdd} added`);
 }
 
 function removeFromCart(name, quantity) {
@@ -160,7 +163,7 @@ function removeFromCart(name, quantity) {
 /* ---------- UI ---------- */
 function updateCartCount() {
     const count = document.getElementById('cartCount');
-    if (count) count.textContent = cart.length;
+    if (count) count.textContent = cart.reduce((sum, item) => sum + (Number(item.count) || 1), 0);
     updateMobileCartBar();
 }
 
@@ -190,7 +193,7 @@ function renderCartItems() {
 
     container.innerHTML = cart.map((item, index) => `
         <div class="cart-item">
-            <span class="cart-item-name">${escapeHtml(item.name)} <small>(${escapeHtml(item.quantity)} · ₹${item.price != null ? escapeHtml(item.price) : ''})</small></span>
+            <span class="cart-item-name">${escapeHtml(item.name)} <small>(${escapeHtml(item.quantity)} × ${Number(item.count) || 1} · ₹${item.price != null ? escapeHtml(item.price) : ''})</small></span>
             <button class="cart-item-remove" data-cart-index="${index}" aria-label="Remove ${escapeHtml(item.name)}">×</button>
         </div>
     `).join('');
@@ -231,8 +234,8 @@ function proceedToWhatsApp() {
         return;
     }
 
-    const itemsList = cart.map(item => `• ${item.name} (${item.quantity}) — ₹${item.price ?? 'Price on request'}`).join('\n');
-    const total = cart.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
+    const itemsList = cart.map(item => `• ${item.name} (${item.quantity}) × ${Number(item.count) || 1} — ₹${item.price ?? 'Price on request'} each = ₹${(Number(item.price) || 0) * (Number(item.count) || 1)}`).join('\n');
+    const total = cart.reduce((sum, item) => sum + (Number(item.price) || 0) * (Number(item.count) || 1), 0);
     const message =
         `Hi, I would like to place an order.\n\n` +
         `🛒 *Items Ordered:*\n${itemsList}\n\n` +
