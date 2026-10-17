@@ -92,6 +92,11 @@ function renderLiveCatalog(products) {
         if (firstAvailable) {
             button.addEventListener('click', () => addToCart(product.name, quantityName));
         }
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', event => {
+            if (event.target.closest('a, button, input, label, select')) return;
+            window.location.href = detailUrl;
+        });
         grid.appendChild(card);
     });
 }
@@ -104,6 +109,11 @@ function decorateStaticProductCards() {
         if (!name) return;
         const slug = catalogSlug(name.replace(/\s*\[(?:Seasonal Availability)\]\s*/i, ''));
         const url = 'product.html?slug=' + encodeURIComponent(slug);
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', event => {
+            if (event.target.closest('a, button, input, label, select')) return;
+            window.location.href = url;
+        });
         if (imageNode && !imageNode.closest('a')) {
             const link = document.createElement('a');
             link.className = 'product-card-detail-link';
