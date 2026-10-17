@@ -1,7 +1,9 @@
 (() => {
   const API = 'https://ammamma.floot.app/_api/catalog';
   const params = new URLSearchParams(window.location.search);
-  const requestedSlug = (params.get('slug') || '').toLowerCase();\n  // Legacy storefront name: Aviseginjala Kaaram is listed in the live catalog as Flax Seed Spice Powder.\n  const productSlugAliases = { 'aviseginjala-kaaram': 'flax-seed-spice-powder' };
+  const requestedSlug = (params.get('slug') || '').toLowerCase();
+  // Legacy storefront name: Aviseginjala Kaaram is listed in the live catalog as Flax Seed Spice Powder.
+  const productSlugAliases = { 'aviseginjala-kaaram': 'flax-seed-spice-powder' };
   const main = document.getElementById('productDetailMain');
   const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
   const slugify = value => String(value || '').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -113,7 +115,8 @@
       const payload = raw?.json ?? raw;
       if (!Array.isArray(payload?.products)) throw new Error('Invalid catalog response');
       const products = payload.products;
-      const canonicalRequestedSlug = productSlugAliases[requestedSlug] || requestedSlug;\n      const product = products.find(p => slugify(p.slug || p.name) === canonicalRequestedSlug);
+      const canonicalRequestedSlug = productSlugAliases[requestedSlug] || requestedSlug;
+      const product = products.find(p => slugify(p.slug || p.name) === canonicalRequestedSlug);
       if (!product) { status('We could not find that product in the current catalog.'); return; }
       renderProduct(product, products);
     } catch (error) {
