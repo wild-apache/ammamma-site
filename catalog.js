@@ -102,7 +102,7 @@ function decorateStaticProductCards() {
         const imageNode = card.querySelector('.product-image');
         const name = nameNode?.textContent?.trim();
         if (!name) return;
-        const slug = catalogSlug(name.replace(/\\s*\\[(?:Seasonal Availability)\\]\\s*/i, ''));
+        const slug = catalogSlug(name.replace(/\s*\[(?:Seasonal Availability)\]\s*/i, ''));
         const url = 'product.html?slug=' + encodeURIComponent(slug);
         if (imageNode && !imageNode.closest('a')) {
             const link = document.createElement('a');
