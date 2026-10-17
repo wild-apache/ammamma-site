@@ -80,7 +80,7 @@ function renderLiveCatalog(products) {
         card.dataset.testid = 'product-card-' + slug;
         const detailUrl = 'product.html?slug=' + encodeURIComponent(slug);
         card.innerHTML =
-            '<a class="product-card-detail-link" href="' + detailUrl + '" aria-label="View ' + catalogEscape(product.name) + '"><div class="product-image" style="background-image:url(\\'' + catalogEscape(image) + '\\');"><span class="product-image-text">' + catalogEscape(product.name) + '</span></div></a>' +
+            '<a class="product-card-detail-link" href="' + detailUrl + '" aria-label="View ' + catalogEscape(product.name) + '"><div class="product-image" style="background-image:url(\'' + catalogEscape(image) + '\');"><span class="product-image-text">' + catalogEscape(product.name) + '</span></div></a>' +
             '<div class="product-info">' +
             '<h3 class="product-name"><a class="product-name-link" href="' + detailUrl + '">' + catalogEscape(product.name) + '</a></h3>' +
             '<p class="product-desc">' + catalogEscape(product.description || '') + '</p>' +
