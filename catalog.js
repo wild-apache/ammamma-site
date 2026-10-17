@@ -136,4 +136,7 @@ async function loadLiveCatalog() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {\n    decorateStaticProductCards();\n    loadLiveCatalog();\n});\n
+document.addEventListener('DOMContentLoaded', () => {
+    decorateStaticProductCards();
+    loadLiveCatalog();
+});
