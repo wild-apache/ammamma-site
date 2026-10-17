@@ -91,7 +91,7 @@
       const groupName = 'related-radio-' + slugify(button.dataset.product);
       let hidden = document.getElementById(groupName);
       if (!hidden) {
-        hidden = document.createElement('input'); hidden.type = 'hidden'; hidden.id = groupName; hidden.name = groupName; document.body.appendChild(hidden);
+        hidden = document.createElement('input'); hidden.type = 'radio'; hidden.checked = true; hidden.style.display = 'none'; hidden.id = groupName; hidden.name = groupName; document.body.appendChild(hidden);
       }
       hidden.value = select.value;
       hidden.dataset.price = select.selectedOptions[0]?.dataset.price || '';
