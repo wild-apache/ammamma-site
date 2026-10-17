@@ -82,7 +82,7 @@
     document.getElementById('detailAddToCart').addEventListener('click', () => {
       const qty = Math.min(20, Math.max(1, Math.floor(Number(qtyInput.value || 1))));
       qtyInput.value = qty;
-      for (let i = 0; i < qty; i++) addToCart(product.name, group);
+      addToCart(product.name, group, qty);
     });
     document.getElementById('relatedPrev')?.addEventListener('click', () => document.getElementById('relatedTrack')?.scrollBy({left:-280,behavior:'smooth'}));
     document.getElementById('relatedNext')?.addEventListener('click', () => document.getElementById('relatedTrack')?.scrollBy({left:280,behavior:'smooth'}));
