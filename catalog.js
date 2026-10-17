@@ -78,10 +78,11 @@ function renderLiveCatalog(products) {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.dataset.testid = 'product-card-' + slug;
+        const detailUrl = 'product.html?slug=' + encodeURIComponent(slug);
         card.innerHTML =
-            '<div class="product-image" style="background-image:url(\'' + catalogEscape(image) + '\');"><span class="product-image-text">' + catalogEscape(product.name) + '</span></div>' +
+            '<a class="product-card-detail-link" href="' + detailUrl + '" aria-label="View ' + catalogEscape(product.name) + '"><div class="product-image" style="background-image:url(\\'' + catalogEscape(image) + '\\');"><span class="product-image-text">' + catalogEscape(product.name) + '</span></div></a>' +
             '<div class="product-info">' +
-            '<h3 class="product-name">' + catalogEscape(product.name) + '</h3>' +
+            '<h3 class="product-name"><a class="product-name-link" href="' + detailUrl + '">' + catalogEscape(product.name) + '</a></h3>' +
             '<p class="product-desc">' + catalogEscape(product.description || '') + '</p>' +
             '<div class="quantity-selector">' + variantLabels + '</div>' +
             '<button class="btn btn-cart" type="button"' + (firstAvailable ? '' : ' disabled') + '>' + (firstAvailable ? 'Add to Cart' : 'Out of Stock') + '</button>' +
@@ -92,6 +93,33 @@ function renderLiveCatalog(products) {
             button.addEventListener('click', () => addToCart(product.name, quantityName));
         }
         grid.appendChild(card);
+    });
+}
+
+function decorateStaticProductCards() {
+    document.querySelectorAll('.product-card').forEach(card => {
+        const nameNode = card.querySelector('.product-name');
+        const imageNode = card.querySelector('.product-image');
+        const name = nameNode?.textContent?.trim();
+        if (!name) return;
+        const slug = catalogSlug(name.replace(/\\s*\\[(?:Seasonal Availability)\\]\\s*/i, ''));
+        const url = 'product.html?slug=' + encodeURIComponent(slug);
+        if (imageNode && !imageNode.closest('a')) {
+            const link = document.createElement('a');
+            link.className = 'product-card-detail-link';
+            link.href = url;
+            link.setAttribute('aria-label', 'View ' + name);
+            imageNode.parentNode.insertBefore(link, imageNode);
+            link.appendChild(imageNode);
+        }
+        if (nameNode && !nameNode.querySelector('a')) {
+            const link = document.createElement('a');
+            link.className = 'product-name-link';
+            link.href = url;
+            link.textContent = name;
+            nameNode.textContent = '';
+            nameNode.appendChild(link);
+        }
     });
 }
 
@@ -108,4 +136,4 @@ async function loadLiveCatalog() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadLiveCatalog);
+document.addEventListener('DOMContentLoaded', () => {\n    decorateStaticProductCards();\n    loadLiveCatalog();\n});
