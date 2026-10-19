@@ -1,15 +1,6 @@
 let cart = [];
 
 /* ---------- Mobile experience ---------- */
-function loadMobileStyles() {
-    if (document.getElementById('ammammaMobileStyles')) return;
-    const link = document.createElement('link');
-    link.id = 'ammammaMobileStyles';
-    link.rel = 'stylesheet';
-    link.href = 'mobile.css';
-    document.head.appendChild(link);
-}
-
 function setupMobileNavigation() {
     const headerContent = document.querySelector('.header-content');
     const nav = document.querySelector('.nav');
@@ -320,7 +311,6 @@ function showNotification(msg) {
 
 /* ---------- Events ---------- */
 document.addEventListener('DOMContentLoaded', () => {
-    loadMobileStyles();
     setupMobileNavigation();
     setupMobileCartBar();
     loadCart();
