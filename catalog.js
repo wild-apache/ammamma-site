@@ -65,16 +65,17 @@ function renderLiveCatalog(products) {
 
         const quantityName = 'qty-live-' + slug;
         const variantLabels = variants.map((variant, index) => {
-            const price = Number(variant.price) || 0;
-            const available = Boolean(variant.available);
-            const checked = index === 0 && available ? ' checked' : '';
+            const price = Number(variant.price);
+            const hasValidPrice = Number.isFinite(price) && price > 0;
+            const available = Boolean(variant.available) && hasValidPrice;
+            const checked = index === variants.findIndex(v => Boolean(v.available) && Number.isFinite(Number(v.price)) && Number(v.price) > 0) && available ? ' checked' : '';
             const disabled = available ? '' : ' disabled';
-            const availability = available ? '' : ' — Out of stock';
+            const availability = !variant.available ? ' — Out of stock' : (!hasValidPrice ? ' — Price unavailable' : '');
             return '<label><input type="radio" name="' + quantityName + '" value="' + catalogEscape(variant.size) + '" data-price="' + price + '"' + checked + disabled + '> ' +
                 catalogEscape(variant.size) + ' — ₹' + price.toLocaleString('en-IN') + availability + '</label>';
         }).join('');
 
-        const firstAvailable = variants.some(variant => Boolean(variant.available));
+        const firstAvailable = variants.some(variant => Boolean(variant.available) && Number.isFinite(Number(variant.price)) && Number(variant.price) > 0);
         const card = document.createElement('div');
         card.className = 'product-card';
         card.dataset.testid = 'product-card-' + slug;
@@ -99,6 +100,34 @@ function renderLiveCatalog(products) {
         });
         grid.appendChild(card);
     });
+}
+
+function showCatalogStatus(message, retry = false) {
+    const section = document.querySelector('.products-section');
+    const container = section?.querySelector('.container');
+    if (!section || !container) return;
+    container.hidden = true;
+    let status = document.getElementById('liveCatalogStatus');
+    if (!status) {
+        status = document.createElement('div');
+        status.id = 'liveCatalogStatus';
+        status.className = 'container catalog-status';
+        status.setAttribute('role', 'status');
+        status.style.cssText = 'padding:2rem 1rem;text-align:center;min-height:180px;color:#123524;';
+        section.insertAdjacentElement('beforebegin', status);
+    }
+    status.hidden = false;
+    status.textContent = message;
+    if (retry) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'btn btn-primary';
+        button.textContent = 'Retry loading products';
+        button.style.marginTop = '1rem';
+        button.addEventListener('click', loadLiveCatalog);
+        status.appendChild(document.createElement('br'));
+        status.appendChild(button);
+    }
 }
 
 function decorateStaticProductCards() {
@@ -134,15 +163,24 @@ function decorateStaticProductCards() {
 }
 
 async function loadLiveCatalog() {
+    const section = document.querySelector('.products-section');
+    const container = section?.querySelector('.container');
+    if (container) container.hidden = true;
+    showCatalogStatus('Loading the latest products and prices…');
     try {
         const response = await fetch(AMMAMMA_CATALOG_API, { cache: 'no-store' });
         if (!response.ok) throw new Error('Catalog request failed');
         const raw = JSON.parse(await response.text());
         const payload = raw?.json ?? raw;
         if (!payload || !Array.isArray(payload.products)) throw new Error('Invalid catalog response');
+        if (container) container.hidden = false;
+        const status = document.getElementById('liveCatalogStatus');
+        if (status) status.hidden = true;
         renderLiveCatalog(payload.products);
+        if (!payload.products.length) showCatalogStatus('No products are currently available. Please check back soon.');
     } catch (error) {
-        console.warn('Ammamma live catalog unavailable; keeping static catalog.', error);
+        console.warn('Ammamma live catalog unavailable; ordering is paused to avoid showing stale prices.', error);
+        showCatalogStatus('We could not load the latest product prices. Ordering is temporarily unavailable so we do not show incorrect prices. Please try again.', true);
     }
 }
 
