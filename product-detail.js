@@ -33,11 +33,10 @@
     const related = products.filter(item => item !== product && item.name !== product.name &&
       (String(item.category || '').toLowerCase() === String(product.category || '').toLowerCase())).slice(0, 10);
     const story = [
-      ['Farm-Sourced Ingredients', 'We carefully select ingredients from farms and trusted suppliers. Product-specific sourcing details can be added when verified.'],
-      ['Prepared with Care', 'Ingredients are handled with attention to detail. The exact preparation and drying method should be confirmed for each product.'],
-      ['Handcrafted with Care', 'Our traditional range is presented with care. Add authentic preparation and packing photos here when available.']
+      { title: 'Farm-Sourced Ingredients', text: 'We carefully select ingredients from farms and trusted suppliers. Product-specific sourcing details can be added when verified.', image: 'https://images.unsplash.com/photo-1595265185654-f7b3c41c9a57?auto=format&fit=crop&w=1000&q=85', alt: 'Indian spices, chillies, garlic and herbs arranged for cooking' },
+      { title: 'Prepared with Care', text: 'Ingredients are handled with attention to detail. The exact preparation and drying method should be confirmed for each product.', image: 'https://www.popatstores.co.uk/media/catalog/category/M_P.jpg', alt: 'Traditional mortar and pestle used to prepare spices' },
+      { title: 'Handcrafted with Care', text: 'Our traditional range is presented with care. Product-specific preparation and packing details can be added when verified.', image: 'https://ramadevifoods.com/cdn/shop/files/TomatoPickle.jpg?v=1717141712&width=1090', alt: 'Tomato pickle with tomatoes, garlic and red chillies' }
     ];
-    const storyIcons = ['🌿','🥣','🏡'];
     main.innerHTML = '<div class="container">' +
       '<nav class="product-breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span>›</span><a href="products.html">Products</a><span>›</span><span aria-current="page">' + esc(product.name) + '</span></nav>' +
       '<section class="product-detail-hero"><div class="detail-gallery"><div class="detail-image-wrap">' +
@@ -57,7 +56,7 @@
       field('Dietary information', product.dietaryInfo || product.dietary_information) +
       '<div class="detail-info-block"><h3>Serving suggestions</h3><p>' + esc(String(product.category || '').toLowerCase() === 'pickles' ? 'Enjoy with rice, curd rice, dosa or idli, according to your taste.' : String(product.category || '').toLowerCase() === 'powders' ? 'Mix with hot rice and ghee, or enjoy as an accompaniment to idli and dosa.' : String(product.category || '').toLowerCase() === 'ghee' ? 'Serve with hot rice, dal or your favourite home-cooked dishes.' : 'Enjoy as part of your favourite home-cooked meal.') + '</p></div></section>' +
       '<section class="brand-story"><div class="brand-story-intro"><p class="detail-eyebrow">The Ammamma way</p><h2>From Our Farms to Your Table</h2><p>Every product reflects our appreciation for traditional flavours and careful preparation. We are building this story around verified practices and will add authentic brand photography as it becomes available.</p></div><div class="brand-story-grid">' +
-      story.map((item, i) => '<article class="brand-story-card"><div class="brand-story-placeholder" aria-hidden="true"><span>' + storyIcons[i] + '</span><small>Authentic brand photo to be added</small></div><div class="brand-story-copy"><h3>' + esc(item[0]) + '</h3><p>' + esc(item[1]) + '</p></div></article>').join('') +
+      story.map(item => '<article class="brand-story-card"><img class="brand-story-image" src="' + esc(item.image) + '" alt="' + esc(item.alt) + '" loading="lazy"><div class="brand-story-copy"><h3>' + esc(item.title) + '</h3><p>' + esc(item.text) + '</p></div></article>').join('') +
       '</div></section>' +
       '<section class="related-products"><div class="related-heading"><div><p class="detail-eyebrow">Explore more</p><h2>You May Also Love</h2></div><div class="related-controls"><button type="button" id="relatedPrev" aria-label="Scroll related products left">←</button><button type="button" id="relatedNext" aria-label="Scroll related products right">→</button></div></div>' +
       (related.length ? '<div class="related-track" id="relatedTrack">' + related.map((item, i) => {
