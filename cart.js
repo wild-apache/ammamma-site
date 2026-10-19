@@ -256,7 +256,9 @@ function proceedToWhatsApp() {
         return;
     }
     const itemsList = cart.map(item =>
-        \`• \${item.name} (\${item.quantity}) × \${Number(item.count)} — ₹\${Number(item.price).toLocaleString('en-IN')} each = ₹\${(Number(item.price) * Number(item.count)).toLocaleString('en-IN')}\`
+        '• ' + item.name + ' (' + item.quantity + ') × ' + Number(item.count) + ' — ₹' +
+        Number(item.price).toLocaleString('en-IN') + ' each = ₹' +
+        (Number(item.price) * Number(item.count)).toLocaleString('en-IN')
     ).join('\n');
     const total = cart.reduce((sum, item) => sum + Number(item.price) * Number(item.count), 0);
     const message = [
@@ -265,7 +267,7 @@ function proceedToWhatsApp() {
         '🛒 *Items Ordered:*',
         itemsList,
         '',
-        \`💰 *Subtotal (subject to confirmation):* ₹\${total.toLocaleString('en-IN')}\`,
+        '💰 *Subtotal (subject to confirmation):* ₹' + total.toLocaleString('en-IN'),
         '',
         '📍 *Delivery Address:*',
         address,
