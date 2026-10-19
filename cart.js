@@ -255,14 +255,23 @@ function proceedToWhatsApp() {
         document.getElementById('customerAddress')?.focus();
         return;
     }
-    const itemsList = cart.map(item => `• ${item.name} (${item.quantity}) × ${Number(item.count)} — ₹${Number(item.price).toLocaleString('en-IN')} each = ₹${(Number(item.price) * Number(item.count)).toLocaleString('en-IN')}`).join('\\n');
+    const itemsList = cart.map(item =>
+        \`• \${item.name} (\${item.quantity}) × \${Number(item.count)} — ₹\${Number(item.price).toLocaleString('en-IN')} each = ₹\${(Number(item.price) * Number(item.count)).toLocaleString('en-IN')}\`
+    ).join('\n');
     const total = cart.reduce((sum, item) => sum + Number(item.price) * Number(item.count), 0);
-    const message =
-        `Hi, I would like to place an order.\\n\\n` +
-        `🛒 *Items Ordered:*\\n${itemsList}\\n\\n` +
-        `💰 *Subtotal (subject to confirmation):* ₹${total.toLocaleString('en-IN')}\\n\\n` +
-        `📍 *Delivery Address:*\\n${address}\\n\\n` +
-        `Please confirm final pricing, availability and delivery charges.`;
+    const message = [
+        'Hi, I would like to place an order.',
+        '',
+        '🛒 *Items Ordered:*',
+        itemsList,
+        '',
+        \`💰 *Subtotal (subject to confirmation):* ₹\${total.toLocaleString('en-IN')}\`,
+        '',
+        '📍 *Delivery Address:*',
+        address,
+        '',
+        'Please confirm final pricing, availability and delivery charges.'
+    ].join('\n');
     const whatsappURL = `https://wa.me/916303444683?text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, '_blank', 'noopener,noreferrer');
 }
