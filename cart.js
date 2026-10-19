@@ -261,20 +261,23 @@ function proceedToWhatsApp() {
         (Number(item.price) * Number(item.count)).toLocaleString('en-IN')
     ).join('\n');
     const total = cart.reduce((sum, item) => sum + Number(item.price) * Number(item.count), 0);
+    // Keep the message plain-text compatible across mobile browsers and WhatsApp clients.
     const message = [
         'Hi, I would like to place an order.',
         '',
-        '🛒 *Items Ordered:*',
+        '*Items Ordered:*',
         itemsList,
         '',
-        '💰 *Subtotal (subject to confirmation):* ₹' + total.toLocaleString('en-IN'),
+        '*Subtotal (subject to confirmation):* ₹' + total.toLocaleString('en-IN'),
         '',
-        '📍 *Delivery Address:*',
+        '*Delivery Address:*',
         address,
         '',
         'Please confirm final pricing, availability and delivery charges.'
-    ].join('\n');
-    const whatsappURL = `https://wa.me/916303444683?text=${encodeURIComponent(message)}`;
+    ].join('\n').replace(/\r\n?/g, '\n');
+    const params = new URLSearchParams();
+    params.set('text', message);
+    const whatsappURL = 'https://wa.me/916303444683?' + params.toString();
     window.open(whatsappURL, '_blank', 'noopener,noreferrer');
 }
 
