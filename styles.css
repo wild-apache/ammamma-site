@@ -346,8 +346,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .category-image {
+    display: block;
     height: 200px;
     width: 100%;
+    object-fit: cover;
+    aspect-ratio: 3 / 2;
 }
 
 .category-name {
