@@ -1,5 +1,5 @@
-/* Ammamma mobile-first storefront layer
-   Loaded dynamically by cart.js so the existing desktop stylesheet stays untouched. */
+/* Ammamma mobile-first storefront layer.
+   Loaded in the document head to avoid post-render layout shifts. */
 
 :root {
     --mobile-header-height: 64px;
