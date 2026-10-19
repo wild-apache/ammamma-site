@@ -7,9 +7,14 @@
   const main = document.getElementById('productDetailMain');
   const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
   const slugify = value => String(value || '').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  const money = value => '₹' + Number(value || 0).toLocaleString('en-IN');
+  const money = value => Number.isFinite(Number(value)) && Number(value) > 0
+    ? '₹' + Number(value).toLocaleString('en-IN')
+    : 'Price unavailable';
   const categoryName = value => String(value || '').toLowerCase() === 'powders' ? 'Spice Powders' : String(value || 'Products');
-  const availableVariants = product => (product.variants || []).filter(v => v.available);
+  const availableVariants = product => (product.variants || []).filter(v =>
+    Boolean(v.available) && Number.isFinite(Number(v.price)) && Number(v.price) > 0 &&
+    typeof v.size === 'string' && v.size.trim()
+  );
   const imageFor = product => product.imageUrl || '';
   const status = message => { main.innerHTML = '<div class="container"><p class="product-detail-status" role="status">' + esc(message) + '</p><p><a href="products.html">Back to all products</a></p></div>'; };
   const addSchema = (product, variants, groupName) => variants.map((variant, i) =>
@@ -101,7 +106,7 @@
     const productJson = {
       '@context':'https://schema.org', '@type':'Product', name:product.name, description:description,
       image:imageFor(product) || undefined,
-      offers: available.map(v => ({'@type':'Offer', priceCurrency:'INR', price:Number(v.price), availability:'https://schema.org/InStock', url:canonicalUrl}))
+      offers: available.map(v => ({'@type':'Offer', name: product.name + ' - ' + v.size, priceCurrency:'INR', price:Number(v.price), availability:'https://schema.org/InStock', url:canonicalUrl}))
     };
     const structured = document.createElement('script'); structured.type='application/ld+json'; structured.textContent=JSON.stringify(productJson); document.head.appendChild(structured);
   }

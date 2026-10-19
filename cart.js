@@ -59,7 +59,10 @@ function setupMobileNavigation() {
     backdrop.addEventListener('click', closeMenu);
     panel.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
     document.addEventListener('keydown', event => {
-        if (event.key === 'Escape') closeMenu();
+        if (event.key === 'Escape') {
+            closeMenu();
+            if (document.getElementById('cartModal')?.classList.contains('active')) closeCart();
+        }
     });
 
     headerContent.appendChild(toggle);
@@ -114,37 +117,53 @@ function updateMobileCartBar() {
 function loadCart() {
     try {
         const saved = localStorage.getItem('ammaCart');
-        if (saved) cart = JSON.parse(saved);
+        const parsed = saved ? JSON.parse(saved) : [];
+        cart = Array.isArray(parsed) ? parsed.filter(item =>
+            item && typeof item.name === 'string' && item.name.trim() &&
+            typeof item.quantity === 'string' && item.quantity.trim() &&
+            Number.isFinite(Number(item.price)) && Number(item.price) > 0 &&
+            Number.isInteger(Number(item.count)) && Number(item.count) >= 1 && Number(item.count) <= 99
+        ).map(item => ({ name: item.name, quantity: item.quantity, price: Number(item.price), count: Number(item.count) })) : [];
+        if (saved && cart.length === 0) localStorage.removeItem('ammaCart');
     } catch (error) {
         cart = [];
+        showNotification('Your saved cart could not be read. Please add your items again.');
     }
     updateCartCount();
     updateMobileCartBar();
 }
 
 function saveCart() {
-    localStorage.setItem('ammaCart', JSON.stringify(cart));
+    try {
+        localStorage.setItem('ammaCart', JSON.stringify(cart));
+        return true;
+    } catch (error) {
+        showNotification('Cart updated for this visit, but could not be saved on this device.');
+        return false;
+    }
 }
 
 /* ---------- Cart Actions ---------- */
 function addToCart(productName, qtyGroup, requestedCount = 1) {
     const selected = document.querySelector(`input[name="${qtyGroup}"]:checked`);
-    if (!selected) {
-        showNotification('Please select a quantity');
+    if (!selected || selected.disabled) {
+        showNotification('Please select an available pack size');
         return;
     }
 
     const quantity = selected.value;
-    const picklePriceByQuantity = { '250g': 129, '500g': 399, '1kg': 599 };
-    const selectedPrice = selected.dataset.price;
-    const price = selectedPrice !== undefined && selectedPrice !== ''
-        ? Number(selectedPrice)
-        : (picklePriceByQuantity[quantity] || null);
+    const rawPrice = selected.dataset.price;
+    const price = rawPrice !== undefined && rawPrice.trim() !== '' ? Number(rawPrice) : NaN;
+    if (!Number.isFinite(price) || price <= 0) {
+        showNotification('Current price is unavailable. Please refresh the product catalog and try again.');
+        return;
+    }
+
     const countToAdd = Math.min(20, Math.max(1, Math.floor(Number(requestedCount) || 1)));
     const exists = cart.find(item => item.name === productName && item.quantity === quantity);
-
     if (exists) {
         exists.count = Math.min(99, (Number(exists.count) || 1) + countToAdd);
+        exists.price = price;
     } else {
         cart.push({ name: productName, quantity, price, count: countToAdd });
     }
@@ -226,38 +245,44 @@ function proceedToWhatsApp() {
         showNotification('Add items first');
         return;
     }
-
+    if (cart.some(item => !Number.isFinite(Number(item.price)) || Number(item.price) <= 0)) {
+        showNotification('One or more prices are unavailable. Remove those items and add them again after refreshing the catalog.');
+        return;
+    }
     const address = document.getElementById('customerAddress')?.value.trim() || '';
     if (!address) {
         showNotification('Please enter delivery address');
         document.getElementById('customerAddress')?.focus();
         return;
     }
-
-    const itemsList = cart.map(item => `• ${item.name} (${item.quantity}) × ${Number(item.count) || 1} — ₹${item.price ?? 'Price on request'} each = ₹${(Number(item.price) || 0) * (Number(item.count) || 1)}`).join('\n');
-    const total = cart.reduce((sum, item) => sum + (Number(item.price) || 0) * (Number(item.count) || 1), 0);
+    const itemsList = cart.map(item => `• ${item.name} (${item.quantity}) × ${Number(item.count)} — ₹${Number(item.price).toLocaleString('en-IN')} each = ₹${(Number(item.price) * Number(item.count)).toLocaleString('en-IN')}`).join('\\n');
+    const total = cart.reduce((sum, item) => sum + Number(item.price) * Number(item.count), 0);
     const message =
-        `Hi, I would like to place an order.\n\n` +
-        `🛒 *Items Ordered:*\n${itemsList}\n\n` +
-        `💰 *Total:* ₹${total}\n\n` +
-        `📍 *Delivery Address:*\n${address}`;
-
+        `Hi, I would like to place an order.\\n\\n` +
+        `🛒 *Items Ordered:*\\n${itemsList}\\n\\n` +
+        `💰 *Subtotal (subject to confirmation):* ₹${total.toLocaleString('en-IN')}\\n\\n` +
+        `📍 *Delivery Address:*\\n${address}\\n\\n` +
+        `Please confirm final pricing, availability and delivery charges.`;
     const whatsappURL = `https://wa.me/916303444683?text=${encodeURIComponent(message)}`;
-    window.open(whatsappURL, '_blank', 'noopener');
+    window.open(whatsappURL, '_blank', 'noopener,noreferrer');
 }
 
 /* ---------- Modal ---------- */
+let lastCartOpener = null;
 function openCart() {
     ensureAddressField();
     renderCartItems();
     handleAddressInput();
+    lastCartOpener = document.activeElement;
     document.getElementById('cartModal')?.classList.add('active');
     document.body.classList.add('cart-open');
+    document.getElementById('closeCart')?.focus();
 }
 
 function closeCart() {
     document.getElementById('cartModal')?.classList.remove('active');
     document.body.classList.remove('cart-open');
+    if (lastCartOpener && typeof lastCartOpener.focus === 'function') lastCartOpener.focus();
 }
 
 /* ---------- Notifications ---------- */
